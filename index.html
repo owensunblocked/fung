@@ -3,1645 +3,693 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fung</title>
+<title>Fung Projects</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#080808;
-  color:white;
-  min-height:100vh;
-}
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #080808;
+        color: #fff;
+    }
 
-header{
-  height:70px;
-  background:#101010;
-  border-bottom:1px solid #292929;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 25px;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
+    :root {
+        --orange: #ff6a00;
+        --orange-dark: #cc4f00;
+        --card: #111;
+        --card2: #171717;
+        --border: #292929;
+        --muted: #999;
+    }
 
-.logo{
-  font-size:30px;
-  font-weight:900;
-  letter-spacing:2px;
-}
+    header {
+        height: 70px;
+        background: #0d0d0d;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        padding: 0 35px;
+        gap: 35px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
 
-.nav{
-  display:flex;
-  gap:10px;
-}
+    .logo {
+        font-size: 25px;
+        font-weight: 900;
+        color: var(--orange);
+        letter-spacing: 2px;
+        white-space: nowrap;
+    }
 
-button{
-  background:#1b1b1b;
-  border:1px solid #333;
-  color:white;
-  padding:11px 17px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
+    nav {
+        display: flex;
+        gap: 24px;
+        flex: 1;
+    }
 
-button:hover{
-  background:#292929;
-}
+    nav a {
+        color: #aaa;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+    }
 
-.primary{
-  background:#fff;
-  color:#000;
-  border-color:#fff;
-}
+    nav a:hover {
+        color: #fff;
+    }
 
-.primary:hover{
-  background:#ddd;
-}
+    .top-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-.container{
-  width:min(1200px,94%);
-  margin:30px auto;
-}
+    #nameInput {
+        width: 130px;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: #151515;
+        color: white;
+        outline: none;
+    }
 
-.hero{
-  background:linear-gradient(135deg,#151515,#0b0b0b);
-  border:1px solid #292929;
-  border-radius:15px;
-  padding:35px;
-  margin-bottom:25px;
-}
+    #nameInput:focus {
+        border-color: var(--orange);
+    }
 
-.hero h1{
-  font-size:45px;
-  margin-bottom:10px;
-}
+    button {
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
 
-.hero p{
-  color:#aaa;
-  font-size:17px;
-}
+    .create-btn {
+        display: none;
+        background: var(--orange);
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 7px;
+    }
 
-.search{
-  width:100%;
-  background:#111;
-  border:1px solid #333;
-  color:white;
-  padding:15px;
-  border-radius:9px;
-  margin:20px 0;
-  outline:none;
-  font-size:16px;
-}
+    .create-btn:hover {
+        background: var(--orange-dark);
+    }
 
-.search:focus{
-  border-color:#777;
-}
+    .hero {
+        padding: 70px 30px 45px;
+        text-align: center;
+        background:
+            radial-gradient(circle at center, #241000 0%, #0b0b0b 55%, #080808 100%);
+    }
 
-.section-title{
-  font-size:25px;
-  margin:25px 0 15px;
-}
+    .hero h1 {
+        font-size: 52px;
+        font-weight: 900;
+        margin-bottom: 12px;
+    }
 
-.projects{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:18px;
-}
+    .hero h1 span {
+        color: var(--orange);
+    }
 
-.project{
-  background:#111;
-  border:1px solid #292929;
-  border-radius:13px;
-  padding:20px;
-  transition:.15s;
-}
+    .hero p {
+        color: var(--muted);
+        max-width: 650px;
+        margin: auto;
+        line-height: 1.6;
+    }
 
-.project:hover{
-  transform:translateY(-2px);
-  border-color:#444;
-}
+    .search-container {
+        max-width: 850px;
+        margin: 30px auto 0;
+    }
 
-.project h3{
-  font-size:21px;
-  margin-bottom:8px;
-}
+    #search {
+        width: 100%;
+        padding: 16px 18px;
+        background: #121212;
+        color: white;
+        border: 1px solid #303030;
+        border-radius: 9px;
+        outline: none;
+        font-size: 15px;
+    }
 
-.project p{
-  color:#999;
-  margin-bottom:12px;
-  word-break:break-word;
-}
+    #search:focus {
+        border-color: var(--orange);
+    }
 
-.creator{
-  color:#bbb;
-  font-size:13px;
-  margin-bottom:15px;
-}
+    main {
+        max-width: 1200px;
+        margin: auto;
+        padding: 40px 25px 80px;
+    }
 
-.project-files{
-  border-top:1px solid #292929;
-  padding-top:12px;
-  margin-top:12px;
-}
+    .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
 
-.file{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  background:#181818;
-  padding:9px;
-  border-radius:7px;
-  margin-top:7px;
-  font-size:13px;
-}
+    .section-title h2 {
+        font-size: 24px;
+    }
 
-.file span{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
+    .project-count {
+        color: #777;
+        font-size: 13px;
+    }
 
-.file a{
-  color:white;
-  text-decoration:none;
-  background:#292929;
-  padding:6px 9px;
-  border-radius:6px;
-}
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
 
-.empty{
-  color:#777;
-  padding:30px;
-  text-align:center;
-  border:1px dashed #333;
-  border-radius:10px;
-}
+    .project {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: .2s;
+    }
 
-.modal-bg{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  z-index:100;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
+    .project:hover {
+        transform: translateY(-4px);
+        border-color: #444;
+    }
 
-.modal{
-  width:min(600px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:#111;
-  border:1px solid #333;
-  border-radius:14px;
-  padding:25px;
-}
+    .project-image {
+        height: 155px;
+        background:
+            linear-gradient(135deg, #241000, #111);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--orange);
+        font-size: 34px;
+        font-weight: 900;
+    }
 
-.modal h2{
-  margin-bottom:18px;
-}
+    .project-content {
+        padding: 18px;
+    }
 
-.input{
-  width:100%;
-  background:#090909;
-  border:1px solid #333;
-  color:white;
-  padding:13px;
-  border-radius:8px;
-  outline:none;
-  margin-bottom:12px;
-}
+    .project h3 {
+        font-size: 19px;
+        margin-bottom: 8px;
+    }
 
-textarea.input{
-  min-height:100px;
-  resize:vertical;
-}
+    .description {
+        color: #999;
+        font-size: 13px;
+        line-height: 1.5;
+        min-height: 40px;
+    }
 
-.file-input{
-  width:100%;
-  padding:12px;
-  background:#181818;
-  border:1px dashed #444;
-  border-radius:8px;
-  color:#aaa;
-  margin-bottom:15px;
-}
+    .creator {
+        margin-top: 14px;
+        font-size: 12px;
+        color: #777;
+    }
 
-.modal-buttons{
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:15px;
-}
+    .creator span {
+        color: var(--orange);
+        font-weight: bold;
+    }
 
-.profile-info{
-  background:#181818;
-  padding:15px;
-  border-radius:9px;
-  margin-bottom:15px;
-}
+    .project-footer {
+        margin-top: 17px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.permission-list{
-  margin-top:10px;
-}
+    .version {
+        color: #777;
+        font-size: 12px;
+    }
 
-.permission-user{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:#191919;
-  padding:10px;
-  border-radius:7px;
-  margin-top:7px;
-}
+    .view-btn {
+        background: #222;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+    }
 
-.status{
-  color:#888;
-  font-size:13px;
-  margin-top:8px;
-}
+    .view-btn:hover {
+        background: var(--orange);
+    }
 
-.loading{
-  color:#888;
-  text-align:center;
-  padding:30px;
-}
+    .empty {
+        text-align: center;
+        color: #777;
+        padding: 70px 20px;
+        display: none;
+    }
 
-.tabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:20px;
-}
+    .modal-background {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.8);
+        z-index: 500;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
 
-.tab{
-  padding:10px 15px;
-}
+    .modal {
+        width: 100%;
+        max-width: 520px;
+        background: #111;
+        border: 1px solid #303030;
+        border-radius: 12px;
+        padding: 25px;
+    }
 
-.tab.active{
-  background:white;
-  color:black;
-}
+    .modal h2 {
+        margin-bottom: 20px;
+    }
 
-.community-post{
-  background:#111;
-  border:1px solid #292929;
-  padding:18px;
-  border-radius:12px;
-  margin-bottom:12px;
-}
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-.community-post h3{
-  margin-bottom:7px;
-}
+    .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        color: #bbb;
+        font-size: 13px;
+    }
 
-.community-post p{
-  color:#bbb;
-  white-space:pre-wrap;
-}
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        background: #181818;
+        color: white;
+        border: 1px solid #303030;
+        border-radius: 7px;
+        outline: none;
+        font-family: inherit;
+    }
 
-.post-meta{
-  color:#777;
-  font-size:12px;
-  margin-top:10px;
-}
+    .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
 
-@media(max-width:650px){
-  header{
-    padding:0 12px;
-  }
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--orange);
+    }
 
-  .logo{
-    font-size:24px;
-  }
+    .modal-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
 
-  .hero{
-    padding:25px;
-  }
+    .cancel-btn {
+        background: #222;
+        color: white;
+        padding: 11px 16px;
+        border-radius: 7px;
+    }
 
-  .hero h1{
-    font-size:34px;
-  }
+    .submit-btn {
+        background: var(--orange);
+        color: white;
+        padding: 11px 16px;
+        border-radius: 7px;
+    }
 
-  .nav button{
-    padding:9px 10px;
-  }
-}
+    .submit-btn:hover {
+        background: var(--orange-dark);
+    }
+
+    footer {
+        border-top: 1px solid var(--border);
+        padding: 30px;
+        text-align: center;
+        color: #666;
+        font-size: 13px;
+    }
+
+    @media (max-width: 750px) {
+        header {
+            padding: 0 15px;
+            gap: 15px;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+        }
+
+        #nameInput {
+            width: 100px;
+        }
+    }
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">FUNG</div>
+    <div class="logo">FUNG</div>
 
-  <div class="nav">
-    <button onclick="openCommunity()">Community</button>
-    <button onclick="openProfile()">Profile</button>
-    <button id="createBtn" class="primary" onclick="openCreate()">Create</button>
-  </div>
+    <nav>
+        <a href="#">Projects</a>
+        <a href="#">Community</a>
+        <a href="#">Tutorials</a>
+        <a href="#">Updates</a>
+    </nav>
+
+    <div class="top-right">
+        <input
+            id="nameInput"
+            type="text"
+            placeholder="Your name"
+            autocomplete="off"
+        >
+
+        <button class="create-btn" id="createButton">
+            + Create
+        </button>
+    </div>
 </header>
 
-<div class="container">
+<section class="hero">
+    <h1>Welcome to <span>Fung</span></h1>
 
-  <section class="hero">
-    <h1>Fung</h1>
-    <p>Discover GTAG fan games, projects, scripts, maps, models and more.</p>
-  </section>
+    <p>
+        Discover, share and create projects for the community.
+    </p>
 
-  <input
-    id="search"
-    class="search"
-    placeholder="Search projects or people..."
-    oninput="searchEverything()"
-  >
-
-  <div class="tabs">
-    <button id="projectsTab" class="tab active" onclick="showProjects()">Projects</button>
-    <button id="communityTab" class="tab" onclick="showCommunity()">Community</button>
-  </div>
-
-  <div id="projectsPage">
-    <h2 class="section-title">Projects</h2>
-    <div id="projects" class="projects">
-      <div class="loading">Loading projects...</div>
+    <div class="search-container">
+        <input
+            id="search"
+            type="text"
+            placeholder="Search projects..."
+        >
     </div>
-  </div>
+</section>
 
-  <div id="communityPage" style="display:none;">
-    <h2 class="section-title">Community</h2>
-
-    <button class="primary" onclick="openPost()">Create Post</button>
-
-    <div id="communityPosts" style="margin-top:18px;">
-      <div class="loading">Loading posts...</div>
+<main>
+    <div class="section-title">
+        <h2>Projects</h2>
+        <span class="project-count" id="projectCount"></span>
     </div>
-  </div>
 
+    <div class="projects" id="projects"></div>
+
+    <div class="empty" id="empty">
+        No projects found.
+    </div>
+</main>
+
+<footer>
+    Fung Projects © 2026
+</footer>
+
+<!-- CREATE PROJECT MODAL -->
+<div class="modal-background" id="modalBackground">
+    <div class="modal">
+
+        <h2>Create a Project</h2>
+
+        <div class="form-group">
+            <label>Project Name</label>
+            <input
+                id="projectName"
+                type="text"
+                placeholder="My GTAG Fan Game"
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea
+                id="projectDescription"
+                placeholder="Describe your project..."
+            ></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Version</label>
+            <input
+                id="projectVersion"
+                type="text"
+                placeholder="1.0.0"
+            >
+        </div>
+
+        <div class="modal-buttons">
+            <button class="cancel-btn" id="cancelButton">
+                Cancel
+            </button>
+
+            <button class="submit-btn" id="submitButton">
+                Create Project
+            </button>
+        </div>
+
+    </div>
 </div>
 
+<script>
+const STORAGE_KEY = "fungProjects_v1";
 
-<!-- LOGIN -->
-<div id="loginModal" class="modal-bg">
-  <div class="modal">
+const defaultProjects = [
+    {
+        id: 1,
+        name: "Ranked 2025",
+        description: "A GTAG-style fan game project.",
+        version: "1.0.0",
+        creator: "Tui"
+    }
+];
 
-    <h2>Choose Your Name</h2>
+let projects = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-    <input
-      id="usernameInput"
-      class="input"
-      placeholder="Enter username"
-      maxlength="20"
-    >
-
-    <div id="loginError" class="status"></div>
-
-    <div class="modal-buttons">
-      <button onclick="closeModal('loginModal')">Cancel</button>
-      <button class="primary" onclick="login()">Continue</button>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- CREATE PROJECT -->
-<div id="createModal" class="modal-bg">
-  <div class="modal">
-
-    <h2>Create Project</h2>
-
-    <input
-      id="projectName"
-      class="input"
-      placeholder="Project name"
-      maxlength="60"
-    >
-
-    <textarea
-      id="projectDescription"
-      class="input"
-      placeholder="Project description"
-    ></textarea>
-
-    <input
-      id="projectFiles"
-      class="file-input"
-      type="file"
-      multiple
-      accept=".zip,.rar,.cs,.txt,.unitypackage,.fbx,.obj,.blend,.prefab"
-    >
-
-    <div id="uploadStatus" class="status"></div>
-
-    <div class="modal-buttons">
-      <button onclick="closeModal('createModal')">Cancel</button>
-      <button class="primary" onclick="createProject()">Upload Project</button>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- PROFILE -->
-<div id="profileModal" class="modal-bg">
-  <div class="modal">
-
-    <h2>Profile</h2>
-
-    <div class="profile-info">
-      <b>Username:</b>
-      <span id="profileName">Not signed in</span>
-    </div>
-
-    <div id="ownerPanel" style="display:none;">
-
-      <h3>Project Upload Permissions</h3>
-
-      <p class="status">
-        Tui and Tui1 can always upload projects.
-        You can give other users permission here.
-      </p>
-
-      <input
-        id="permissionUsername"
-        class="input"
-        placeholder="Username to allow"
-        maxlength="20"
-        style="margin-top:12px;"
-      >
-
-      <button class="primary" onclick="givePermission()">
-        Give Project Permission
-      </button>
-
-      <div class="permission-list" id="permissionList"></div>
-
-    </div>
-
-    <div class="modal-buttons">
-      <button onclick="closeModal('profileModal')">Close</button>
-      <button onclick="logout()">Change Name</button>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- COMMUNITY POST -->
-<div id="postModal" class="modal-bg">
-  <div class="modal">
-
-    <h2>Create Community Post</h2>
-
-    <input
-      id="postTitle"
-      class="input"
-      placeholder="Title"
-      maxlength="80"
-    >
-
-    <textarea
-      id="postText"
-      class="input"
-      placeholder="Write something..."
-    ></textarea>
-
-    <div id="postStatus" class="status"></div>
-
-    <div class="modal-buttons">
-      <button onclick="closeModal('postModal')">Cancel</button>
-      <button class="primary" onclick="createPost()">Post</button>
-    </div>
-
-  </div>
-</div>
-
-
-<script type="module">
-
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-
-import {
-  getAuth,
-  signInAnonymously,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-import {
-  getFirestore,
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  addDoc,
-  deleteDoc,
-  serverTimestamp,
-  onSnapshot,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBW76BOAXq8a2I8intQyWcRUaAij6B7Pd0",
-  authDomain: "fung-a9459.firebaseapp.com",
-  projectId: "fung-a9459",
-  storageBucket: "fung-a9459.firebasestorage.app",
-  messagingSenderId: "1060315926053",
-  appId: "1:1060315926053:web:7b7fe4b82f492c1005f9cc",
-  measurementId: "G-6YB9LVWG4T"
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
-
-
-let firebaseUser = null;
-let currentUser = localStorage.getItem("fung_user") || "";
-let allowedCreators = new Set();
-
-let projectsData = [];
-let postsData = [];
-
-let listenersStarted = false;
-
-
-window.closeModal = function(id){
-  document.getElementById(id).style.display = "none";
-};
-
-
-function openModal(id){
-  document.getElementById(id).style.display = "flex";
+if (!Array.isArray(projects)) {
+    projects = defaultProjects;
+    saveProjects();
 }
 
-
-window.openCreate = function(){
-
-  if(!currentUser){
-    openModal("loginModal");
-    return;
-  }
-
-  if(!canCreateProjects()){
-    alert("You do not have permission to create projects.");
-    return;
-  }
-
-  openModal("createModal");
-};
-
-
-window.openProfile = function(){
-
-  if(!currentUser){
-    openModal("loginModal");
-    return;
-  }
-
-  renderProfile();
-
-  openModal("profileModal");
-};
-
-
-window.openCommunity = function(){
-  showCommunity();
-};
-
-
-window.openPost = function(){
-
-  if(!currentUser){
-    openModal("loginModal");
-    return;
-  }
-
-  document.getElementById("postTitle").value = "";
-  document.getElementById("postText").value = "";
-  document.getElementById("postStatus").textContent = "";
-
-  openModal("postModal");
-};
-
-
-function canCreateProjects(){
-
-  const name = currentUser.trim().toLowerCase();
-
-  // Tui and Tui1 ALWAYS have upload permission.
-  if(name === "tui" || name === "tui1"){
-    return true;
-  }
-
-  return allowedCreators.has(name);
+function saveProjects() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
 }
 
+const nameInput = document.getElementById("nameInput");
+const createButton = document.getElementById("createButton");
+const search = document.getElementById("search");
 
-window.login = async function(){
+const modalBackground = document.getElementById("modalBackground");
+const cancelButton = document.getElementById("cancelButton");
+const submitButton = document.getElementById("submitButton");
 
-  const input = document.getElementById("usernameInput");
-  const error = document.getElementById("loginError");
+const projectName = document.getElementById("projectName");
+const projectDescription = document.getElementById("projectDescription");
+const projectVersion = document.getElementById("projectVersion");
 
-  const name = input.value.trim();
+const projectsContainer = document.getElementById("projects");
+const empty = document.getElementById("empty");
+const projectCount = document.getElementById("projectCount");
 
-  if(!name){
-    error.textContent = "Enter a username.";
-    return;
-  }
+function escapeHTML(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-  if(name.length < 2){
-    error.textContent = "Username must be at least 2 characters.";
-    return;
-  }
+/*
+    ONLY "Tui" can create projects.
+*/
+function updateCreateButton() {
+    const name = nameInput.value.trim();
 
-  if(!firebaseUser){
-    error.textContent = "Connecting to Firebase...";
-    return;
-  }
+    if (name.toLowerCase() === "tui") {
+        createButton.style.display = "block";
+    } else {
+        createButton.style.display = "none";
+    }
+}
 
-  try{
+nameInput.addEventListener("input", updateCreateButton);
 
-    const key = name.toLowerCase();
-
-    const userRef = doc(db, "users", key);
-
-    const existing = await getDoc(userRef);
-
-    /*
-      Tui and Tui1 are reserved upload accounts.
-
-      They are allowed even if their user document already exists.
-    */
-    if(
-      key !== "tui" &&
-      key !== "tui1" &&
-      existing.exists() &&
-      currentUser.toLowerCase() !== key
-    ){
-      error.textContent = "That username is already taken.";
-      return;
+createButton.addEventListener("click", () => {
+    if (nameInput.value.trim().toLowerCase() !== "tui") {
+        return;
     }
 
-    await setDoc(
-      userRef,
-      {
-        username: name,
-        updatedAt: serverTimestamp()
-      },
-      {
-        merge:true
-      }
-    );
-
-    currentUser = name;
-
-    localStorage.setItem("fung_user", currentUser);
-
-    error.textContent = "";
-
-    closeModal("loginModal");
-
-    updateUI();
-
-    await loadPermissions();
-
-  }catch(err){
-
-    console.error(err);
-
-    error.textContent =
-      "Firebase error: " +
-      (err.message || "Could not sign in.");
-
-  }
-
-};
-
-
-window.logout = function(){
-
-  currentUser = "";
-
-  localStorage.removeItem("fung_user");
-
-  closeModal("profileModal");
-
-  updateUI();
-
-  openModal("loginModal");
-};
-
-
-async function loadPermissions(){
-
-  allowedCreators = new Set();
-
-  try{
-
-    const q = collection(db, "projectCreators");
-
-    onSnapshot(q, snapshot => {
-
-      allowedCreators = new Set();
-
-      snapshot.forEach(item => {
-
-        const data = item.data();
-
-        if(data.username){
-          allowedCreators.add(
-            data.username.toLowerCase()
-          );
-        }
-
-      });
-
-      updateUI();
-
-      if(
-        document.getElementById("profileModal").style.display === "flex"
-      ){
-        renderCreatorList();
-      }
-
-    });
-
-  }catch(err){
-
-    console.error(err);
-
-  }
-
-}
-
-
-function updateUI(){
-
-  const createBtn = document.getElementById("createBtn");
-
-  if(canCreateProjects()){
-
-    createBtn.style.display = "block";
-    createBtn.textContent = "Create";
-
-  }else{
-
-    createBtn.style.display = "none";
-
-  }
-
-  document.getElementById("profileName").textContent =
-    currentUser || "Not signed in";
-}
-
-
-function renderProfile(){
-
-  document.getElementById("profileName").textContent =
-    currentUser || "Not signed in";
-
-  const ownerPanel =
-    document.getElementById("ownerPanel");
-
-  /*
-    Tui is the owner/admin.
-
-    Tui1 can upload but does NOT get the owner
-    permission-management panel.
-  */
-  if(currentUser.toLowerCase() === "tui"){
-
-    ownerPanel.style.display = "block";
-
-    renderCreatorList();
-
-  }else{
-
-    ownerPanel.style.display = "none";
-
-  }
-
-}
-
-
-function renderCreatorList(){
-
-  const list =
-    document.getElementById("permissionList");
-
-  list.innerHTML = "";
-
-  if(allowedCreators.size === 0){
-
-    list.innerHTML =
-      '<div class="status">No extra users have upload permission.</div>';
-
-    return;
-
-  }
-
-  allowedCreators.forEach(username => {
-
-    if(
-      username === "tui" ||
-      username === "tui1"
-    ){
-      return;
+    projectName.value = "";
+    projectDescription.value = "";
+    projectVersion.value = "";
+
+    modalBackground.style.display = "flex";
+    projectName.focus();
+});
+
+cancelButton.addEventListener("click", () => {
+    modalBackground.style.display = "none";
+});
+
+modalBackground.addEventListener("click", (event) => {
+    if (event.target === modalBackground) {
+        modalBackground.style.display = "none";
+    }
+});
+
+submitButton.addEventListener("click", () => {
+    const creator = nameInput.value.trim();
+
+    if (creator.toLowerCase() !== "tui") {
+        alert("Only Tui can create projects.");
+        return;
     }
 
-    const row =
-      document.createElement("div");
+    const name = projectName.value.trim();
+    const description = projectDescription.value.trim();
+    const version = projectVersion.value.trim() || "1.0.0";
 
-    row.className = "permission-user";
+    if (!name) {
+        alert("Enter a project name.");
+        return;
+    }
 
-    row.innerHTML = `
-      <span>${escapeHTML(username)}</span>
-      <button data-user="${escapeHTML(username)}">Remove</button>
-    `;
+    if (!description) {
+        alert("Enter a project description.");
+        return;
+    }
 
-    row.querySelector("button").onclick =
-      () => removePermission(username);
-
-    list.appendChild(row);
-
-  });
-
-}
-
-
-window.givePermission = async function(){
-
-  if(currentUser.toLowerCase() !== "tui"){
-
-    alert("Only Tui can give project permissions.");
-
-    return;
-
-  }
-
-  const input =
-    document.getElementById("permissionUsername");
-
-  const name =
-    input.value.trim();
-
-  if(!name){
-    return;
-  }
-
-  const key = name.toLowerCase();
-
-  if(
-    key === "tui" ||
-    key === "tui1"
-  ){
-
-    input.value = "";
-
-    return;
-
-  }
-
-  try{
-
-    await setDoc(
-      doc(db, "projectCreators", key),
-      {
-        username:name,
-        grantedBy:"Tui",
-        createdAt:serverTimestamp()
-      }
+    const alreadyExists = projects.some(
+        project => project.name.toLowerCase() === name.toLowerCase()
     );
 
-    input.value = "";
+    if (alreadyExists) {
+        alert("A project with that name already exists.");
+        return;
+    }
 
-    alert(name + " can now upload projects.");
+    const newProject = {
+        id: Date.now(),
+        name: name,
+        description: description,
+        version: version,
+        creator: "Tui"
+    };
 
-  }catch(err){
+    projects.unshift(newProject);
 
-    console.error(err);
+    saveProjects();
 
-    alert(
-      "Could not give permission: " +
-      err.message
-    );
+    modalBackground.style.display = "none";
 
-  }
+    renderProjects();
+});
 
-};
+search.addEventListener("input", renderProjects);
 
+function renderProjects() {
+    const query = search.value.trim().toLowerCase();
 
-async function removePermission(username){
-
-  if(currentUser.toLowerCase() !== "tui"){
-    return;
-  }
-
-  try{
-
-    await deleteDoc(
-      doc(
-        db,
-        "projectCreators",
-        username.toLowerCase()
-      )
-    );
-
-  }catch(err){
-
-    console.error(err);
-
-    alert(
-      "Could not remove permission: " +
-      err.message
-    );
-
-  }
-
-}
-
-
-window.createProject = async function(){
-
-  if(!currentUser){
-
-    alert("Sign in first.");
-
-    return;
-
-  }
-
-  if(!canCreateProjects()){
-
-    alert("You do not have permission to upload projects.");
-
-    return;
-
-  }
-
-  const name =
-    document.getElementById("projectName")
-      .value.trim();
-
-  const description =
-    document.getElementById("projectDescription")
-      .value.trim();
-
-  const files =
-    document.getElementById("projectFiles")
-      .files;
-
-  const status =
-    document.getElementById("uploadStatus");
-
-  if(!name){
-
-    status.textContent =
-      "Enter a project name.";
-
-    return;
-
-  }
-
-  if(!files.length){
-
-    status.textContent =
-      "Select at least one project file.";
-
-    return;
-
-  }
-
-  try{
-
-    status.textContent =
-      "Uploading files...";
-
-    const uploadedFiles = [];
-
-    for(let i = 0; i < files.length; i++){
-
-      const file = files[i];
-
-      const safeName =
-        file.name.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "_"
+    const filtered = projects.filter(project => {
+        return (
+            project.name.toLowerCase().includes(query) ||
+            project.description.toLowerCase().includes(query) ||
+            project.creator.toLowerCase().includes(query)
         );
-
-      const path =
-        "projects/" +
-        Date.now() +
-        "_" +
-        Math.random()
-          .toString(36)
-          .substring(2) +
-        "/" +
-        safeName;
-
-      const fileRef =
-        ref(storage, path);
-
-      await uploadBytes(
-        fileRef,
-        file
-      );
-
-      const url =
-        await getDownloadURL(fileRef);
-
-      uploadedFiles.push({
-
-        name:file.name,
-
-        url:url,
-
-        size:file.size,
-
-        type:file.type || "file"
-
-      });
-
-      status.textContent =
-        "Uploaded " +
-        (i + 1) +
-        " / " +
-        files.length +
-        " files...";
-
-    }
-
-
-    await addDoc(
-      collection(db, "projects"),
-      {
-
-        name:name,
-
-        description:description,
-
-        creator:currentUser,
-
-        creatorLower:
-          currentUser.toLowerCase(),
-
-        files:uploadedFiles,
-
-        created:serverTimestamp()
-
-      }
-    );
-
-
-    document.getElementById("projectName").value = "";
-
-    document.getElementById("projectDescription").value = "";
-
-    document.getElementById("projectFiles").value = "";
-
-    status.textContent =
-      "Project uploaded!";
-
-    setTimeout(() => {
-
-      closeModal("createModal");
-
-      status.textContent = "";
-
-    },1000);
-
-
-  }catch(err){
-
-    console.error(err);
-
-    status.textContent =
-      "Upload failed: " +
-      err.message;
-
-  }
-
-};
-
-
-function startProjectListener(){
-
-  const q = query(
-    collection(db, "projects"),
-    orderBy("created","desc")
-  );
-
-  onSnapshot(
-    q,
-    snapshot => {
-
-      projectsData = [];
-
-      snapshot.forEach(item => {
-
-        projectsData.push({
-          id:item.id,
-          ...item.data()
-        });
-
-      });
-
-      renderProjects();
-
-    },
-    err => {
-
-      console.error(err);
-
-      document.getElementById("projects").innerHTML =
-        '<div class="empty">Could not load projects. Check your Firestore rules.</div>';
-
-    }
-  );
-
-}
-
-
-function renderProjects(){
-
-  const container =
-    document.getElementById("projects");
-
-  const search =
-    document.getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-  const filtered =
-    projectsData.filter(project => {
-
-      if(!search){
-        return true;
-      }
-
-      return (
-
-        String(project.name || "")
-          .toLowerCase()
-          .includes(search)
-
-        ||
-
-        String(project.creator || "")
-          .toLowerCase()
-          .includes(search)
-
-        ||
-
-        String(project.description || "")
-          .toLowerCase()
-          .includes(search)
-
-      );
-
     });
 
+    projectsContainer.innerHTML = "";
 
-  if(filtered.length === 0){
+    projectCount.textContent =
+        projects.length + (projects.length === 1 ? " project" : " projects");
 
-    container.innerHTML =
-      '<div class="empty">No projects found.</div>';
+    if (filtered.length === 0) {
+        empty.style.display = "block";
+        return;
+    }
 
-    return;
+    empty.style.display = "none";
 
-  }
+    filtered.forEach(project => {
+        const card = document.createElement("div");
+        card.className = "project";
 
+        const firstLetter =
+            project.name.charAt(0).toUpperCase();
 
-  container.innerHTML = "";
+        card.innerHTML = `
+            <div class="project-image">
+                ${escapeHTML(firstLetter)}
+            </div>
 
+            <div class="project-content">
+                <h3>${escapeHTML(project.name)}</h3>
 
-  filtered.forEach(project => {
+                <div class="description">
+                    ${escapeHTML(project.description)}
+                </div>
 
-    const card =
-      document.createElement("div");
+                <div class="creator">
+                    Created by
+                    <span>${escapeHTML(project.creator)}</span>
+                </div>
 
-    card.className = "project";
+                <div class="project-footer">
+                    <span class="version">
+                        v${escapeHTML(project.version)}
+                    </span>
 
-
-    let filesHTML = "";
-
-    if(
-      project.files &&
-      project.files.length
-    ){
-
-      filesHTML =
-        '<div class="project-files">';
-
-      project.files.forEach(file => {
-
-        filesHTML += `
-          <div class="file">
-            <span>${escapeHTML(file.name)}</span>
-            <a href="${escapeAttribute(file.url)}" target="_blank" rel="noopener">
-              Download
-            </a>
-          </div>
+                    <button
+                        class="view-btn"
+                        onclick="viewProject(${project.id})"
+                    >
+                        View
+                    </button>
+                </div>
+            </div>
         `;
 
-      });
-
-      filesHTML += "</div>";
-
-    }
-
-
-    card.innerHTML = `
-
-      <h3>${escapeHTML(project.name || "Untitled")}</h3>
-
-      <p>${escapeHTML(project.description || "No description.")}</p>
-
-      <div class="creator">
-        Created by ${escapeHTML(project.creator || "Unknown")}
-      </div>
-
-      ${filesHTML}
-
-    `;
-
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-window.searchEverything = function(){
-
-  renderProjects();
-
-  renderPosts();
-
-};
-
-
-function startCommunityListener(){
-
-  const q = query(
-    collection(db, "communityPosts"),
-    orderBy("date","desc")
-  );
-
-  onSnapshot(
-    q,
-    snapshot => {
-
-      postsData = [];
-
-      snapshot.forEach(item => {
-
-        postsData.push({
-          id:item.id,
-          ...item.data()
-        });
-
-      });
-
-      renderPosts();
-
-    },
-    err => {
-
-      console.error(err);
-
-      document.getElementById("communityPosts").innerHTML =
-        '<div class="empty">Could not load community posts.</div>';
-
-    }
-  );
-
-}
-
-
-function renderPosts(){
-
-  const container =
-    document.getElementById("communityPosts");
-
-  const search =
-    document.getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  const filtered =
-    postsData.filter(post => {
-
-      if(!search){
-        return true;
-      }
-
-      return (
-
-        String(post.title || "")
-          .toLowerCase()
-          .includes(search)
-
-        ||
-
-        String(post.text || "")
-          .toLowerCase()
-          .includes(search)
-
-        ||
-
-        String(post.creator || "")
-          .toLowerCase()
-          .includes(search)
-
-      );
-
+        projectsContainer.appendChild(card);
     });
-
-
-  if(filtered.length === 0){
-
-    container.innerHTML =
-      '<div class="empty">No community posts found.</div>';
-
-    return;
-
-  }
-
-
-  container.innerHTML = "";
-
-
-  filtered.forEach(post => {
-
-    const div =
-      document.createElement("div");
-
-    div.className =
-      "community-post";
-
-
-    div.innerHTML = `
-
-      <h3>${escapeHTML(post.title || "Untitled")}</h3>
-
-      <p>${escapeHTML(post.text || "")}</p>
-
-      <div class="post-meta">
-        Posted by ${escapeHTML(post.creator || "Unknown")}
-      </div>
-
-    `;
-
-
-    container.appendChild(div);
-
-  });
-
 }
 
+function viewProject(id) {
+    const project = projects.find(p => p.id === id);
 
-window.createPost = async function(){
+    if (!project) return;
 
-  if(!currentUser){
-
-    alert("Sign in first.");
-
-    return;
-
-  }
-
-  const title =
-    document.getElementById("postTitle")
-      .value.trim();
-
-  const text =
-    document.getElementById("postText")
-      .value.trim();
-
-  const status =
-    document.getElementById("postStatus");
-
-
-  if(!title){
-
-    status.textContent =
-      "Enter a title.";
-
-    return;
-
-  }
-
-  if(!text){
-
-    status.textContent =
-      "Write something.";
-
-    return;
-
-  }
-
-
-  try{
-
-    status.textContent =
-      "Posting...";
-
-
-    await addDoc(
-      collection(db,"communityPosts"),
-      {
-
-        title:title,
-
-        text:text,
-
-        creator:currentUser,
-
-        date:serverTimestamp()
-
-      }
+    alert(
+        "Project: " + project.name +
+        "\n\n" +
+        project.description +
+        "\n\nCreated by: " +
+        project.creator +
+        "\nVersion: " +
+        project.version
     );
-
-
-    status.textContent =
-      "Posted!";
-
-
-    setTimeout(() => {
-
-      closeModal("postModal");
-
-      status.textContent = "";
-
-    },700);
-
-
-  }catch(err){
-
-    console.error(err);
-
-    status.textContent =
-      "Could not post: " +
-      err.message;
-
-  }
-
-};
-
-
-window.showProjects = function(){
-
-  document.getElementById("projectsPage")
-    .style.display = "block";
-
-  document.getElementById("communityPage")
-    .style.display = "none";
-
-  document.getElementById("projectsTab")
-    .classList.add("active");
-
-  document.getElementById("communityTab")
-    .classList.remove("active");
-
-};
-
-
-window.showCommunity = function(){
-
-  document.getElementById("projectsPage")
-    .style.display = "none";
-
-  document.getElementById("communityPage")
-    .style.display = "block";
-
-  document.getElementById("projectsTab")
-    .classList.remove("active");
-
-  document.getElementById("communityTab")
-    .classList.add("active");
-
-  renderPosts();
-
-};
-
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
 }
 
-
-function escapeAttribute(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;");
-
-}
-
-
-function initializeLogin(){
-
-  if(!currentUser){
-
-    openModal("loginModal");
-
-  }
-
-  updateUI();
-
-}
-
-
-onAuthStateChanged(
-  auth,
-  async user => {
-
-    if(!user){
-
-      try{
-
-        await signInAnonymously(auth);
-
-      }catch(err){
-
-        console.error(
-          "Anonymous Firebase login failed:",
-          err
-        );
-
-        document.getElementById("loginError").textContent =
-          "Firebase Authentication is not enabled. Enable Anonymous sign-in in Firebase Console.";
-
-      }
-
-      return;
-
-    }
-
-
-    firebaseUser = user;
-
-
-    if(!listenersStarted){
-
-      listenersStarted = true;
-
-      startProjectListener();
-
-      startCommunityListener();
-
-      loadPermissions();
-
-    }
-
-
-    updateUI();
-
-    initializeLogin();
-
-  }
-
-);
-
+renderProjects();
+updateCreateButton();
 </script>
 
 </body>
