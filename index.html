@@ -1,0 +1,2825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fung</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#09090b;color:#fff;font-family:Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+header{
+height:70px;
+background:#111114;
+border-bottom:1px solid #29292d;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px;
+position:sticky;
+top:0;
+z-index:10
+}
+
+.logo{font-size:29px;font-weight:900}
+.logo span,.green{color:#7cff4f}
+
+nav{display:flex;gap:7px}
+
+nav button{
+background:transparent;
+color:#999;
+border:0;
+padding:11px 15px;
+border-radius:8px;
+font-weight:bold
+}
+
+nav button:hover,
+nav button.active{
+background:#202024;
+color:#fff
+}
+
+.user{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+main{
+max-width:1200px;
+margin:auto;
+padding:25px 20px 60px
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.hero{
+text-align:center;
+padding:70px 10px 50px
+}
+
+.hero h1{
+font-size:clamp(60px,10vw,105px);
+margin:0;
+font-weight:1000;
+letter-spacing:-7px
+}
+
+.hero p{
+color:#888;
+max-width:650px;
+margin:15px auto 30px;
+font-size:18px
+}
+
+.search{
+max-width:700px;
+margin:auto;
+display:flex;
+gap:10px
+}
+
+input,textarea,select{
+background:#121216;
+color:#fff;
+border:1px solid #303035;
+border-radius:10px;
+padding:14px;
+outline:none
+}
+
+.search input{flex:1}
+
+input:focus,
+textarea:focus,
+select:focus{
+border-color:#7cff4f
+}
+
+.greenBtn{
+background:#7cff4f;
+color:#071005;
+border:0;
+border-radius:10px;
+padding:13px 19px;
+font-weight:900
+}
+
+.grayBtn{
+background:#19191e;
+color:#fff;
+border:1px solid #303035;
+border-radius:10px;
+padding:12px 17px;
+font-weight:bold
+}
+
+.section{margin-top:35px}
+
+.title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px
+}
+
+.title h2{margin:0}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:15px
+}
+
+.card{
+background:#141417;
+border:1px solid #29292e;
+border-radius:15px;
+padding:17px;
+transition:.15s
+}
+
+.card:hover{
+transform:translateY(-3px);
+border-color:#44444b
+}
+
+.icon{
+height:125px;
+background:linear-gradient(135deg,#242428,#0f0f11);
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+margin-bottom:15px
+}
+
+.card h3{margin:0 0 7px}
+
+.card p{
+color:#888;
+min-height:40px;
+font-size:14px
+}
+
+.meta{
+display:flex;
+justify-content:space-between;
+color:#666;
+font-size:12px;
+margin-top:15px
+}
+
+.owner{color:#7cff4f}
+
+.card .grayBtn{
+width:100%;
+margin-top:13px
+}
+
+.posts{
+display:flex;
+flex-direction:column;
+gap:12px
+}
+
+.post{
+background:#141417;
+border:1px solid #29292e;
+border-radius:14px;
+padding:17px
+}
+
+.posttop{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px
+}
+
+.date{
+color:#666;
+font-size:12px
+}
+
+.posttext{
+color:#bbb;
+white-space:pre-wrap;
+word-break:break-word
+}
+
+.box{
+background:#141417;
+border:1px solid #29292e;
+border-radius:15px;
+padding:20px
+}
+
+.empty{
+text-align:center;
+padding:35px;
+color:#666;
+background:#141417;
+border:1px dashed #303035;
+border-radius:13px
+}
+
+.modalbg{
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+z-index:100;
+align-items:center;
+justify-content:center;
+padding:20px
+}
+
+.modalbg.show{display:flex}
+
+.modal{
+width:100%;
+max-width:600px;
+max-height:90vh;
+overflow:auto;
+background:#151518;
+border:1px solid #333;
+border-radius:16px;
+padding:23px
+}
+
+.modal h2{margin-top:0}
+
+.group{margin-bottom:15px}
+
+.group label{
+display:block;
+color:#aaa;
+font-size:13px;
+font-weight:bold;
+margin-bottom:6px
+}
+
+.group input,
+.group textarea,
+.group select{
+width:100%
+}
+
+textarea{
+min-height:100px;
+resize:vertical
+}
+
+.actions{
+display:flex;
+justify-content:flex-end;
+gap:9px;
+margin-top:20px
+}
+
+.file{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0e0e11;
+border:1px solid #29292e;
+border-radius:8px;
+padding:10px;
+margin-top:7px;
+font-size:13px;
+gap:10px
+}
+
+.float{
+display:none;
+position:fixed;
+right:25px;
+bottom:25px;
+z-index:20;
+background:#7cff4f;
+color:#071005;
+border:0;
+border-radius:12px;
+padding:15px 19px;
+font-weight:1000;
+box-shadow:0 7px 25px #000
+}
+
+.float.show{display:block}
+
+.profileName{
+font-size:35px;
+font-weight:1000
+}
+
+.badge{
+font-size:10px;
+background:#1c3916;
+color:#7cff4f;
+padding:5px 8px;
+border-radius:6px;
+margin-left:6px
+}
+
+footer{
+text-align:center;
+color:#555;
+border-top:1px solid #202024;
+padding:25px
+}
+
+@media(max-width:700px){
+nav{display:none}
+.hero{padding-top:35px}
+.search{flex-direction:column}
+.search button{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">F<span>u</span>ng</div>
+
+<nav>
+<button class="active" onclick="page('home',this)">Home</button>
+<button onclick="page('projects',this)">Projects</button>
+<button onclick="page('community',this)">Community</button>
+<button onclick="page('profile',this)">Profile</button>
+</nav>
+
+<div class="user">
+<span id="userName"></span>
+<button id="loginBtn" class="grayBtn" onclick="openLogin()">Sign In</button>
+</div>
+
+</header>
+
+<main>
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h1>F<span>u</span>ng</h1>
+
+<p>
+A place to discover, share and build fan games,
+Unity projects, scripts, models and more.
+</p>
+
+<div class="search">
+
+<input
+id="homeSearch"
+placeholder="Search projects or people..."
+oninput="search(this.value)"
+>
+
+<button
+class="greenBtn"
+onclick="search(document.getElementById('homeSearch').value)"
+>
+Search
+</button>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="title">
+<h2>Featured Projects</h2>
+<span id="count"></span>
+</div>
+
+<div id="featured" class="grid">
+<div class="empty">Loading projects...</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="title">
+<h2>Latest Community Posts</h2>
+</div>
+
+<div id="homePosts" class="posts">
+<div class="empty">Loading posts...</div>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="projects" class="page">
+
+<div class="title">
+
+<h2>Projects</h2>
+
+<span>All projects</span>
+
+</div>
+
+<div class="search" style="margin-bottom:20px">
+
+<input
+id="projectSearch"
+placeholder="Search projects..."
+oninput="renderProjects(this.value)"
+>
+
+</div>
+
+<div id="projectGrid" class="grid">
+<div class="empty">Loading projects...</div>
+</div>
+
+</section>
+
+
+<section id="community" class="page">
+
+<div class="title">
+
+<h2>Community</h2>
+
+<span>Share something</span>
+
+</div>
+
+<div id="postCreator"></div>
+
+<div id="posts" class="posts">
+<div class="empty">Loading posts...</div>
+</div>
+
+</section>
+
+
+<section id="profile" class="page">
+
+<div id="profileContent">
+<div class="empty">Loading profile...</div>
+</div>
+
+</section>
+
+</main>
+
+<footer>
+Fung • Fan Game Project Community
+</footer>
+
+
+<button
+id="createBtn"
+class="float"
+onclick="openProject()"
+>
++ Create Project
+</button>
+
+
+<!-- LOGIN -->
+
+<div id="loginModal" class="modalbg">
+
+<div class="modal">
+
+<h2>Choose your name</h2>
+
+<div
+id="loginError"
+style="color:#ff7777;margin-bottom:10px"
+></div>
+
+<div class="group">
+
+<label>Username</label>
+
+<input
+id="nameInput"
+maxlength="24"
+placeholder="Enter your name"
+>
+
+</div>
+
+<p style="color:#777;font-size:13px">
+Names are unique.
+Tui controls who can upload projects.
+</p>
+
+<div class="actions">
+
+<button
+class="grayBtn"
+onclick="closeModal('loginModal')"
+>
+Cancel
+</button>
+
+<button
+class="greenBtn"
+onclick="login()"
+>
+Continue
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CREATE PROJECT -->
+
+<div id="projectModal" class="modalbg">
+
+<div class="modal">
+
+<h2>Create Project</h2>
+
+<div
+id="projectError"
+style="color:#ff7777;margin-bottom:10px"
+></div>
+
+<div class="group">
+
+<label>Project Name</label>
+
+<input
+id="projectName"
+maxlength="60"
+placeholder="My GTAG Fan Game"
+>
+
+</div>
+
+<div class="group">
+
+<label>Description</label>
+
+<textarea
+id="projectDescription"
+maxlength="1000"
+placeholder="Describe your project..."
+></textarea>
+
+</div>
+
+<div class="group">
+
+<label>Category</label>
+
+<select id="projectCategory">
+
+<option>GTAG Fan Game</option>
+<option>Unity Project</option>
+<option>Scripts</option>
+<option>Models</option>
+<option>Tools</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+<div class="group">
+
+<label>Files</label>
+
+<input
+id="projectFiles"
+type="file"
+multiple
+accept=".zip,.rar,.cs,.txt,.unitypackage,.fbx,.obj,.blend,.prefab"
+onchange="filesChanged()"
+>
+
+<div id="fileList"></div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="grayBtn"
+onclick="closeModal('projectModal')"
+>
+Cancel
+</button>
+
+<button
+class="greenBtn"
+onclick="createProject()"
+>
+Create Project
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- VIEW PROJECT -->
+
+<div id="viewModal" class="modalbg">
+
+<div class="modal">
+
+<div id="viewProject"></div>
+
+<div class="actions">
+
+<button
+class="grayBtn"
+onclick="closeModal('viewModal')"
+>
+Close
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+doc,
+getDoc,
+setDoc,
+addDoc,
+query,
+orderBy,
+onSnapshot,
+serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+import {
+getAuth,
+signInAnonymously,
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+import {
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+}
+from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
+
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyBW76BOAXq8a2I8intQyWcRUaAij6B7Pd0",
+
+authDomain:
+"fung-a9459.firebaseapp.com",
+
+projectId:
+"fung-a9459",
+
+storageBucket:
+"fung-a9459.firebasestorage.app",
+
+messagingSenderId:
+"1060315926053",
+
+appId:
+"1:1060315926053:web:7b7fe4b82f492c1005f9cc",
+
+measurementId:
+"G-6YB9LVWG4T"
+
+};
+
+
+const app=initializeApp(firebaseConfig);
+
+const db=getFirestore(app);
+
+const auth=getAuth(app);
+
+const storage=getStorage(app);
+
+
+let currentUser=
+localStorage.getItem("fung_user")||"";
+
+let projects=[];
+
+let posts=[];
+
+let users=[];
+
+let allowedCreators=[];
+
+let currentFiles=[];
+
+
+function id(){
+
+return Date.now().toString(36)+
+Math.random().toString(36).slice(2,8);
+
+}
+
+
+function esc(x){
+
+return String(x??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+function size(n){
+
+if(!n)return"0 B";
+
+let units=[
+"B",
+"KB",
+"MB",
+"GB"
+];
+
+let i=Math.floor(
+Math.log(n)/Math.log(1024)
+);
+
+i=Math.min(i,units.length-1);
+
+return(
+Math.round(
+n/Math.pow(1024,i)*100
+)/100
+)+" "+units[i];
+
+}
+
+
+function timeOf(x){
+
+if(!x)return 0;
+
+if(typeof x==="number")
+return x;
+
+if(x.createdAt?.seconds)
+return x.createdAt.seconds*1000;
+
+if(x.date?.seconds)
+return x.date.seconds*1000;
+
+return 0;
+
+}
+
+
+/*
+========================================
+PAGE
+========================================
+*/
+
+window.page=function(name,btn){
+
+document
+.querySelectorAll(".page")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+document
+.getElementById(name)
+.classList.add("active");
+
+document
+.querySelectorAll("nav button")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+if(btn)
+btn.classList.add("active");
+
+
+if(name==="home")
+renderHome();
+
+if(name==="projects")
+renderProjects(
+document.getElementById(
+"projectSearch"
+)?.value||""
+);
+
+if(name==="community")
+renderCommunity();
+
+if(name==="profile")
+renderProfile();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+};
+
+
+/*
+========================================
+USER LOGIN
+========================================
+*/
+
+window.openLogin=function(){
+
+document.getElementById(
+"nameInput"
+).value=currentUser;
+
+document.getElementById(
+"loginError"
+).textContent="";
+
+document.getElementById(
+"loginModal"
+).classList.add("show");
+
+};
+
+
+window.login=async function(){
+
+let name=
+document.getElementById(
+"nameInput"
+).value.trim();
+
+let error=
+document.getElementById(
+"loginError"
+);
+
+
+if(!name){
+
+error.textContent=
+"Enter a username.";
+
+return;
+
+}
+
+
+if(name.length<2){
+
+error.textContent=
+"Username must be at least 2 characters.";
+
+return;
+
+}
+
+
+let key=name.toLowerCase();
+
+let userRef=
+doc(db,"users",key);
+
+let existing=
+await getDoc(userRef);
+
+
+if(
+existing.exists() &&
+currentUser.toLowerCase()!==key
+){
+
+error.textContent=
+"That username is already taken.";
+
+return;
+
+}
+
+
+await setDoc(
+userRef,
+{
+username:name,
+createdAt:serverTimestamp()
+},
+{
+merge:true
+}
+);
+
+
+currentUser=name;
+
+localStorage.setItem(
+"fung_user",
+currentUser
+);
+
+
+closeModal("loginModal");
+
+updateUser();
+
+renderHome();
+
+renderCommunity();
+
+renderProfile();
+
+};
+
+
+window.logout=function(){
+
+currentUser="";
+
+localStorage.removeItem(
+"fung_user"
+);
+
+updateUser();
+
+renderCommunity();
+
+renderProfile();
+
+};
+
+
+function updateUser(){
+
+let name=
+document.getElementById(
+"userName"
+);
+
+let button=
+document.getElementById(
+"loginBtn"
+);
+
+let create=
+document.getElementById(
+"createBtn"
+);
+
+
+name.textContent=currentUser;
+
+
+if(currentUser){
+
+button.textContent="Sign Out";
+
+button.onclick=logout;
+
+}else{
+
+button.textContent="Sign In";
+
+button.onclick=openLogin;
+
+}
+
+
+if(canCreateProject()){
+
+create.classList.add("show");
+
+}else{
+
+create.classList.remove("show");
+
+}
+
+}
+
+
+/*
+========================================
+TUI PERMISSION SYSTEM
+========================================
+*/
+
+function canCreateProject(){
+
+if(!currentUser)
+return false;
+
+
+/*
+Tui ALWAYS has permission.
+*/
+
+if(
+currentUser.toLowerCase()==="tui"
+){
+
+return true;
+
+}
+
+
+/*
+Other people can create only if
+Tui gave them permission.
+*/
+
+return allowedCreators.some(
+name=>
+name.toLowerCase()===
+currentUser.toLowerCase()
+);
+
+}
+
+
+/*
+========================================
+TUI: GIVE PROJECT PERMISSION
+========================================
+*/
+
+window.openPermission=function(){
+
+if(
+currentUser.toLowerCase()!=="tui"
+){
+
+return;
+
+}
+
+
+document.getElementById(
+"permissionName"
+).value="";
+
+document.getElementById(
+"permissionError"
+).textContent="";
+
+document.getElementById(
+"permissionModal"
+).classList.add("show");
+
+};
+
+
+window.givePermission=async function(){
+
+if(
+currentUser.toLowerCase()!=="tui"
+){
+
+return;
+
+}
+
+
+let input=
+document.getElementById(
+"permissionName"
+);
+
+let error=
+document.getElementById(
+"permissionError"
+);
+
+let name=input.value.trim();
+
+
+if(!name){
+
+error.textContent=
+"Enter a username.";
+
+return;
+
+}
+
+
+if(name.toLowerCase()==="tui"){
+
+error.textContent=
+"Tui already has project access.";
+
+return;
+
+}
+
+
+try{
+
+await setDoc(
+doc(
+db,
+"projectCreators",
+name.toLowerCase()
+),
+{
+username:name,
+addedBy:"Tui",
+createdAt:serverTimestamp()
+}
+);
+
+
+input.value="";
+
+alert(
+name+
+" can now upload projects!"
+);
+
+}
+catch(e){
+
+console.error(e);
+
+error.textContent=
+"Could not give permission: "+
+e.message;
+
+}
+
+};
+
+
+/*
+========================================
+REMOVE PROJECT PERMISSION
+========================================
+*/
+
+window.removePermission=async function(name){
+
+if(
+currentUser.toLowerCase()!=="tui"
+){
+
+return;
+
+}
+
+
+if(
+!confirm(
+"Remove project upload permission from "+
+name+"?"
+)
+){
+
+return;
+
+}
+
+
+try{
+
+await import(
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
+).then(async({deleteDoc})=>{
+
+await deleteDoc(
+doc(
+db,
+"projectCreators",
+name.toLowerCase()
+)
+);
+
+});
+
+}
+catch(e){
+
+console.error(e);
+
+alert(
+"Could not remove permission: "+
+e.message
+);
+
+}
+
+};
+
+
+/*
+========================================
+CREATE PROJECT
+========================================
+*/
+
+window.openProject=function(){
+
+if(!currentUser){
+
+openLogin();
+
+return;
+
+}
+
+
+if(!canCreateProject()){
+
+alert(
+"Tui has not given your account project upload permission yet."
+);
+
+return;
+
+}
+
+
+document.getElementById(
+"projectName"
+).value="";
+
+document.getElementById(
+"projectDescription"
+).value="";
+
+document.getElementById(
+"projectFiles"
+).value="";
+
+document.getElementById(
+"fileList"
+).innerHTML="";
+
+document.getElementById(
+"projectError"
+).textContent="";
+
+currentFiles=[];
+
+document.getElementById(
+"projectModal"
+).classList.add("show");
+
+};
+
+
+window.filesChanged=function(){
+
+let input=
+document.getElementById(
+"projectFiles"
+);
+
+let box=
+document.getElementById(
+"fileList"
+);
+
+currentFiles=
+Array.from(input.files);
+
+box.innerHTML="";
+
+
+currentFiles.forEach(file=>{
+
+box.innerHTML+=`
+
+<div class="file">
+
+<span>
+${esc(file.name)}
+</span>
+
+<span style="color:#666">
+${size(file.size)}
+</span>
+
+</div>
+
+`;
+
+});
+
+};
+
+
+window.createProject=async function(){
+
+if(!canCreateProject()){
+
+alert(
+"You do not have project upload permission."
+);
+
+return;
+
+}
+
+
+let name=
+document.getElementById(
+"projectName"
+).value.trim();
+
+let description=
+document.getElementById(
+"projectDescription"
+).value.trim();
+
+let category=
+document.getElementById(
+"projectCategory"
+).value;
+
+let error=
+document.getElementById(
+"projectError"
+);
+
+
+if(!name){
+
+error.textContent=
+"Enter a project name.";
+
+return;
+
+}
+
+
+if(!description){
+
+error.textContent=
+"Enter a description.";
+
+return;
+
+}
+
+
+if(
+projects.some(
+p=>
+p.name.toLowerCase()===
+name.toLowerCase()
+)
+){
+
+error.textContent=
+"That project already exists.";
+
+return;
+
+}
+
+
+let button=
+document.querySelector(
+"#projectModal .greenBtn"
+);
+
+button.disabled=true;
+
+button.textContent=
+"Uploading...";
+
+
+try{
+
+let projectId=id();
+
+let uploadedFiles=[];
+
+
+for(
+const file of currentFiles
+){
+
+let path=
+"projects/"+
+projectId+
+"/"+
+Date.now()+
+"-"+
+file.name;
+
+let fileRef=
+ref(storage,path);
+
+await uploadBytes(
+fileRef,
+file
+);
+
+let url=
+await getDownloadURL(
+fileRef
+);
+
+
+uploadedFiles.push({
+
+name:file.name,
+
+size:file.size,
+
+type:file.type,
+
+url:url,
+
+path:path
+
+});
+
+}
+
+
+await setDoc(
+doc(
+db,
+"projects",
+projectId
+),
+{
+
+name:name,
+
+description:description,
+
+category:category,
+
+owner:currentUser,
+
+files:uploadedFiles,
+
+created:Date.now(),
+
+createdAt:serverTimestamp()
+
+}
+);
+
+
+closeModal(
+"projectModal"
+);
+
+alert(
+"Project created and is now live!"
+);
+
+}
+catch(e){
+
+console.error(e);
+
+alert(
+"Upload failed: "+
+e.message
+);
+
+}
+finally{
+
+button.disabled=false;
+
+button.textContent=
+"Create Project";
+
+}
+
+};
+
+
+/*
+========================================
+PROJECT CARDS
+========================================
+*/
+
+function card(p){
+
+return`
+
+<div class="card">
+
+<div class="icon">
+🐒
+</div>
+
+<h3>
+${esc(p.name)}
+</h3>
+
+<p>
+${esc(p.description)}
+</p>
+
+<div class="meta">
+
+<span class="owner">
+${esc(p.owner)}
+</span>
+
+<span>
+${esc(p.category)}
+</span>
+
+</div>
+
+<button
+class="grayBtn"
+onclick="viewProject('${esc(p.id)}')"
+>
+View Project
+</button>
+
+</div>
+
+`;
+
+}
+
+
+/*
+========================================
+HOME
+========================================
+*/
+
+function renderHome(){
+
+let featured=
+document.getElementById(
+"featured"
+);
+
+let list=
+[...projects]
+.sort(
+(a,b)=>
+timeOf(b)-timeOf(a)
+)
+.slice(0,6);
+
+
+document.getElementById(
+"count"
+).textContent=
+projects.length+
+" project"+
+(
+projects.length===1
+?""
+:"s"
+);
+
+
+featured.innerHTML=
+list.length
+?
+list.map(card).join("")
+:
+`<div class="empty">
+No projects yet.
+</div>`;
+
+
+let homePosts=
+document.getElementById(
+"homePosts"
+);
+
+
+let latest=
+[...posts]
+.sort(
+(a,b)=>
+timeOf(b)-timeOf(a)
+)
+.slice(0,3);
+
+
+homePosts.innerHTML=
+latest.map(post).join("")
+||
+`<div class="empty">
+No posts yet.
+</div>`;
+
+}
+
+
+/*
+========================================
+PROJECT SEARCH
+========================================
+*/
+
+function renderProjects(queryText){
+
+let q=
+(queryText||"")
+.toLowerCase()
+.trim();
+
+
+let list=
+projects.filter(p=>
+
+(p.name||"")
+.toLowerCase()
+.includes(q)
+
+||
+
+(p.description||"")
+.toLowerCase()
+.includes(q)
+
+||
+
+(p.owner||"")
+.toLowerCase()
+.includes(q)
+
+||
+
+(p.category||"")
+.toLowerCase()
+.includes(q)
+
+);
+
+
+document.getElementById(
+"projectGrid"
+).innerHTML=
+
+list.length
+
+?
+
+list
+.sort(
+(a,b)=>
+timeOf(b)-timeOf(a)
+)
+.map(card)
+.join("")
+
+:
+
+`<div class="empty">
+No projects found.
+</div>`;
+
+}
+
+
+/*
+========================================
+VIEW PROJECT
+========================================
+*/
+
+window.viewProject=function(projectId){
+
+let p=
+projects.find(
+x=>x.id===projectId
+);
+
+if(!p)return;
+
+
+let files=
+p.files&&p.files.length
+
+?
+
+p.files.map(
+f=>`
+
+<div class="file">
+
+<div>
+
+<strong>
+${esc(f.name)}
+</strong>
+
+<br>
+
+<small style="color:#666">
+${size(f.size)}
+</small>
+
+</div>
+
+<button
+class="grayBtn"
+onclick="downloadFile('${esc(f.url)}')"
+>
+Download
+</button>
+
+</div>
+
+`
+).join("")
+
+:
+
+`<div class="empty">
+No files assigned.
+</div>`;
+
+
+document.getElementById(
+"viewProject"
+).innerHTML=`
+
+<h1>
+${esc(p.name)}
+</h1>
+
+<div class="green">
+${esc(p.category)}
+</div>
+
+<p style="color:#777">
+Created by ${esc(p.owner)}
+</p>
+
+<p style="
+color:#aaa;
+line-height:1.6
+">
+${esc(p.description)}
+</p>
+
+<h3>
+Project Files
+</h3>
+
+${files}
+
+`;
+
+
+document.getElementById(
+"viewModal"
+).classList.add("show");
+
+};
+
+
+window.downloadFile=function(url){
+
+if(!url){
+
+alert(
+"This file does not have a download link."
+);
+
+return;
+
+}
+
+window.open(
+url,
+"_blank"
+);
+
+};
+
+
+/*
+========================================
+COMMUNITY
+========================================
+*/
+
+function post(p){
+
+return`
+
+<div class="post">
+
+<div class="posttop">
+
+<strong>
+${esc(p.user)}
+</strong>
+
+<span class="date">
+${formatDate(p)}
+</span>
+
+</div>
+
+<div class="posttext">
+${esc(p.text)}
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function formatDate(p){
+
+let t=timeOf(p);
+
+if(!t)
+return"Just now";
+
+return new Date(t)
+.toLocaleDateString();
+
+}
+
+
+function renderCommunity(){
+
+let creator=
+document.getElementById(
+"postCreator"
+);
+
+
+if(currentUser){
+
+creator.innerHTML=`
+
+<div
+class="box"
+style="margin-bottom:15px"
+>
+
+<textarea
+id="postText"
+placeholder="Write a community post..."
+></textarea>
+
+<br><br>
+
+<button
+class="greenBtn"
+onclick="createPost()"
+>
+Post
+</button>
+
+</div>
+
+`;
+
+}else{
+
+creator.innerHTML=`
+
+<div
+class="empty"
+style="margin-bottom:15px"
+>
+
+Sign in to create a post.
+
+<br><br>
+
+<button
+class="greenBtn"
+onclick="openLogin()"
+>
+Sign In
+</button>
+
+</div>
+
+`;
+
+}
+
+
+document.getElementById(
+"posts"
+).innerHTML=
+
+[...posts]
+.sort(
+(a,b)=>
+timeOf(b)-timeOf(a)
+)
+.map(post)
+.join("")
+
+||
+
+`<div class="empty">
+No posts yet.
+</div>`;
+
+}
+
+
+window.createPost=async function(){
+
+let text=
+document.getElementById(
+"postText"
+).value.trim();
+
+
+if(!text){
+
+alert(
+"Write something first."
+);
+
+return;
+
+}
+
+
+try{
+
+await addDoc(
+collection(
+db,
+"communityPosts"
+),
+{
+
+user:currentUser,
+
+text:text,
+
+date:Date.now(),
+
+createdAt:serverTimestamp()
+
+}
+);
+
+}
+catch(e){
+
+console.error(e);
+
+alert(
+"Post failed: "+
+e.message
+);
+
+}
+
+};
+
+
+/*
+========================================
+PROFILE
+========================================
+*/
+
+function renderProfile(){
+
+let box=
+document.getElementById(
+"profileContent"
+);
+
+
+if(!currentUser){
+
+box.innerHTML=`
+
+<div
+class="box"
+style="max-width:500px;margin:50px auto"
+>
+
+<h2>
+Your Profile
+</h2>
+
+<p style="color:#777">
+Sign in to view your profile.
+</p>
+
+<button
+class="greenBtn"
+onclick="openLogin()"
+>
+Sign In
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+let mine=
+projects.filter(
+p=>
+(p.owner||"")
+.toLowerCase()===
+currentUser.toLowerCase()
+);
+
+
+let tuiPanel="";
+
+
+/*
+ONLY TUI GETS THIS PANEL.
+*/
+
+if(
+currentUser.toLowerCase()==="tui"
+){
+
+tuiPanel=`
+
+<div
+class="section"
+>
+
+<div class="box">
+
+<h2>
+Project Upload Permissions
+</h2>
+
+<p style="color:#777">
+Give another Fung user permission to upload projects.
+</p>
+
+<button
+class="greenBtn"
+onclick="openPermission()"
+>
++ Give Project Permission
+</button>
+
+<div
+style="margin-top:20px"
+>
+
+<h3>
+People who can upload
+</h3>
+
+<div id="creatorList">
+Loading...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+box.innerHTML=`
+
+<div class="box">
+
+<div class="profileName">
+
+${esc(currentUser)}
+
+${
+canCreateProject()
+?
+'<span class="badge">PROJECT CREATOR</span>'
+:""
+}
+
+</div>
+
+<p style="color:#777">
+
+${mine.length}
+project${mine.length===1?"":"s"}
+
+</p>
+
+${
+canCreateProject()
+
+?
+
+`<button
+class="greenBtn"
+onclick="openProject()"
+>
++ Create Project
+</button>`
+
+:""
+
+}
+
+</div>
+
+${tuiPanel}
+
+<div class="section">
+
+<div class="title">
+
+<h2>
+Your Projects
+</h2>
+
+</div>
+
+${
+mine.length
+
+?
+
+`<div class="grid">
+${mine.map(card).join("")}
+</div>`
+
+:
+
+`<div class="empty">
+You have no projects.
+</div>`
+
+}
+
+</div>
+
+`;
+
+
+if(
+currentUser.toLowerCase()==="tui"
+){
+
+renderCreatorList();
+
+}
+
+}
+
+
+/*
+========================================
+TUI CREATOR LIST
+========================================
+*/
+
+function renderCreatorList(){
+
+let box=
+document.getElementById(
+"creatorList"
+);
+
+if(!box)return;
+
+
+if(!allowedCreators.length){
+
+box.innerHTML=`
+
+<div class="empty">
+Nobody has been given upload permission yet.
+</div>
+
+`;
+
+return;
+
+}
+
+
+box.innerHTML=
+allowedCreators.map(
+name=>`
+
+<div
+class="file"
+>
+
+<strong>
+${esc(name)}
+</strong>
+
+<button
+class="grayBtn"
+onclick="removePermission('${esc(name)}')"
+>
+Remove
+</button>
+
+</div>
+
+`
+).join("");
+
+}
+
+
+/*
+========================================
+SEARCH PEOPLE
+========================================
+*/
+
+window.search=function(q){
+
+q=
+(q||"")
+.trim()
+.toLowerCase();
+
+
+page(
+"projects",
+document.querySelectorAll(
+"nav button"
+)[1]
+);
+
+
+document.getElementById(
+"projectSearch"
+).value=q;
+
+
+let projectMatches=
+projects.filter(p=>
+
+(p.name||"")
+.toLowerCase()
+.includes(q)
+
+||
+
+(p.description||"")
+.toLowerCase()
+.includes(q)
+
+||
+
+(p.owner||"")
+.toLowerCase()
+.includes(q)
+
+);
+
+
+let people=
+users.filter(
+u=>
+u.toLowerCase().includes(q)
+);
+
+
+let box=
+document.getElementById(
+"projectGrid"
+);
+
+let html="";
+
+
+if(people.length){
+
+html+=`
+
+<div
+style="grid-column:1/-1"
+>
+
+<h3>
+People
+</h3>
+
+<div
+style="
+display:flex;
+gap:8px;
+flex-wrap:wrap
+"
+>
+
+${people.map(
+u=>`
+
+<button
+class="grayBtn"
+onclick="userPage('${esc(u)}')"
+>
+${esc(u)}
+</button>
+
+`
+).join("")}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(projectMatches.length){
+
+html+=
+projectMatches
+.map(card)
+.join("");
+
+}
+
+
+if(!html){
+
+html=`
+
+<div class="empty">
+Nothing found.
+</div>
+
+`;
+
+}
+
+
+box.innerHTML=html;
+
+};
+
+
+window.userPage=function(username){
+
+let mine=
+projects.filter(
+p=>
+(p.owner||"")
+.toLowerCase()===
+username.toLowerCase()
+);
+
+
+page(
+"profile",
+document.querySelectorAll(
+"nav button"
+)[3]
+);
+
+
+document.getElementById(
+"profileContent"
+).innerHTML=`
+
+<div class="box">
+
+<div class="profileName">
+${esc(username)}
+</div>
+
+<p style="color:#777">
+
+${mine.length}
+project${mine.length===1?"":"s"}
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>
+${esc(username)}'s Projects
+</h2>
+
+<br>
+
+${
+mine.length
+
+?
+
+`<div class="grid">
+${mine.map(card).join("")}
+</div>`
+
+:
+
+`<div class="empty">
+No projects.
+</div>`
+
+}
+
+</div>
+
+`;
+
+};
+
+
+/*
+========================================
+MODALS
+========================================
+*/
+
+window.closeModal=function(id){
+
+document
+.getElementById(id)
+.classList.remove("show");
+
+};
+
+
+document
+.querySelectorAll(".modalbg")
+.forEach(modal=>{
+
+modal.addEventListener(
+"click",
+e=>{
+
+if(e.target===modal){
+
+modal.classList.remove(
+"show"
+);
+
+}
+
+});
+
+});
+
+
+document.addEventListener(
+"keydown",
+e=>{
+
+if(e.key==="Escape"){
+
+document
+.querySelectorAll(".modalbg")
+.forEach(
+x=>x.classList.remove("show")
+);
+
+}
+
+});
+
+
+/*
+========================================
+FIREBASE REALTIME LISTENERS
+========================================
+*/
+
+function startListeners(){
+
+
+/*
+PROJECTS
+*/
+
+const projectsQuery=
+query(
+collection(db,"projects"),
+orderBy("created","desc")
+);
+
+
+onSnapshot(
+projectsQuery,
+snapshot=>{
+
+projects=
+snapshot.docs.map(
+d=>({
+
+id:d.id,
+
+...d.data()
+
+})
+);
+
+
+renderHome();
+
+renderProjects(
+document.getElementById(
+"projectSearch"
+)?.value||""
+);
+
+renderProfile();
+
+},
+error=>{
+
+console.error(
+"Projects error:",
+error
+);
+
+}
+);
+
+
+/*
+COMMUNITY
+*/
+
+const postsQuery=
+query(
+collection(db,"communityPosts"),
+orderBy("date","desc")
+);
+
+
+onSnapshot(
+postsQuery,
+snapshot=>{
+
+posts=
+snapshot.docs.map(
+d=>({
+
+id:d.id,
+
+...d.data()
+
+})
+);
+
+
+renderHome();
+
+renderCommunity();
+
+},
+error=>{
+
+console.error(
+"Posts error:",
+error
+);
+
+}
+);
+
+
+/*
+USERS
+*/
+
+onSnapshot(
+collection(db,"users"),
+snapshot=>{
+
+users=
+snapshot.docs.map(
+d=>
+d.data().username
+);
+
+}
+);
+
+
+/*
+TUI'S PROJECT CREATOR PERMISSIONS
+*/
+
+onSnapshot(
+collection(db,"projectCreators"),
+snapshot=>{
+
+allowedCreators=
+snapshot.docs.map(
+d=>
+d.data().username
+);
+
+
+updateUser();
+
+renderProfile();
+
+},
+error=>{
+
+console.error(
+"Creator permission error:",
+error
+);
+
+}
+);
+
+}
+
+
+/*
+========================================
+FIREBASE AUTH
+========================================
+*/
+
+onAuthStateChanged(
+auth,
+async user=>{
+
+if(!user){
+
+try{
+
+await signInAnonymously(
+auth
+);
+
+}
+catch(e){
+
+console.error(e);
+
+alert(
+"Enable Anonymous Authentication in Firebase."
+);
+
+return;
+
+}
+
+return;
+
+}
+
+
+startListeners();
+
+});
+
+
+/*
+========================================
+START
+========================================
+*/
+
+updateUser();
+
+renderHome();
+
+renderCommunity();
+
+renderProfile();
+
+</script>
+
+
+<!-- TUI PERMISSION MODAL -->
+
+<div
+id="permissionModal"
+class="modalbg"
+>
+
+<div class="modal">
+
+<h2>
+Give Project Permission
+</h2>
+
+<p style="color:#777">
+Enter the exact Fung username that should be
+allowed to upload projects.
+</p>
+
+<div
+id="permissionError"
+style="
+color:#ff7777;
+margin-bottom:10px
+"
+></div>
+
+<div class="group">
+
+<label>
+Username
+</label>
+
+<input
+id="permissionName"
+maxlength="24"
+placeholder="Example: Owen"
+>
+
+</div>
+
+<div class="actions">
+
+<button
+class="grayBtn"
+onclick="closeModal('permissionModal')"
+>
+Cancel
+</button>
+
+<button
+class="greenBtn"
+onclick="givePermission()"
+>
+Give Permission
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
